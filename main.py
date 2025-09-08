@@ -1,3 +1,5 @@
+import os
+
 import cv2
 import numpy as np
 from argparse import ArgumentParser
@@ -86,9 +88,10 @@ def main_realtime():
         # if cv2.waitKey(1) & 0xFF == ord('q'):
         #     break
 
+    os.mkdir("output") if not os.path.exists("output") else None
     if annotated_frames:
         for idx, frame in enumerate(annotated_frames):
-            cv2.imwrite(f"annotated_frame_{idx:04d}.png", frame)
+            cv2.imwrite(f"output/annotated_frame_{idx:04d}.png", frame)
 
     cap.release()
 

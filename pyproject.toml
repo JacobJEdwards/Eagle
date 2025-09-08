@@ -7,7 +7,9 @@ requires-python = ">=3.13"
 dependencies = [
     "albumentations>=2.0.8",
     "boxmot>=15.0.2",
+    "gdown>=5.2.0",
     "ipykernel>=6.30.1",
     "mplsoccer>=1.5.1",
+    "tool>=0.8.0",
     "ultralytics>=8.3.184",
 ]
