@@ -2,7 +2,7 @@ import cv2
 import os
 
 
-def read_video(path: str, fps: int = 10) -> list:
+def read_video(path: str, fps: int = 8) -> list:
     """
     Read a video file and return a list of frames.
     :param path: Path to the video file.
