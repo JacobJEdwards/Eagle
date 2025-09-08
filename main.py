@@ -61,10 +61,14 @@ def main_realtime():
 
     annotated_frames = []
 
+    i = 0
     while True:
         ret, frame = cap.read()
         if not ret:
             break
+
+        print(f"Processing frame {i}")
+        i += 1
 
         # Process a single frame to get coordinates and other data
         frame_data = model.process_single_frame(frame, fps=args.fps)
