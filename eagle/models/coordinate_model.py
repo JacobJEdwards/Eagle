@@ -46,7 +46,8 @@ def find_x_at_y(pt1, pt2, y_target):
 
 class CoordinateModel:
 
-    def __init__(self, keypoint_conf: float = 0.3, detector_conf: float = 0.35):
+    def __init__(self, keypoint_conf: float = 0.3, detector_conf: float = 0.35, fps: int = 24, num_homography: int =
+    1, num_keypoint_detection: int = 3):
         device = get_device()
         self.device = device
         print(f"Using {self.device} for inference")
@@ -73,6 +74,16 @@ class CoordinateModel:
         self.keypoint_conf = keypoint_conf
         self.detector_conf = detector_conf
 
+        self.frame_idx = 0
+        self.fps = fps
+        self.prev_gray = None
+        self.prev_keypoints = {}
+        self.homography_matrix = None
+        self.prev_homography_matrix = None
+        self.compute_homography_next_frame = True # Start by computing it
+        self.homography_interval = max(1, int(fps / max(1, num_homography)))
+        self.keypoint_interval = max(1, int(fps / max(1, num_keypoint_detection)))
+
     def _build_pitch_groups(self):
         if hasattr(self, "_pitch_groups_built") and self._pitch_groups_built:
             return
@@ -92,6 +103,92 @@ class CoordinateModel:
         self._x_groups = x_groups
         self._y_groups = y_groups
         self._pitch_groups_built = True
+
+    def process_single_frame(self, frame: np.ndarray, fps: int = 24, num_homography: int = 1, num_keypoint_detection: int = 1, calibration: bool = False):
+        homography_interval = max(1, int(fps / max(1, num_homography)))
+        keypoint_interval = max(1, int(fps / max(1, num_keypoint_detection)))
+
+        curr_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        # Keypoint detection/tracking logic
+        if self.frame_idx == 0 or (self.frame_idx % keypoint_interval == 0):
+            keypoints = self.detect_keypoints(frame)
+            if len(keypoints) < 4 and self.prev_gray is not None:
+                optical_flow_keypoints = self.calculate_optical_flow(frame, self.prev_gray, self.prev_keypoints, curr_gray)
+                keypoints = {**keypoints, **optical_flow_keypoints}
+        else:
+            keypoints = self.calculate_optical_flow(frame, self.prev_gray, self.prev_keypoints, curr_gray)
+            if len(keypoints) < 4:
+                model_keypoints = self.detect_keypoints(frame)
+                keypoints = {**model_keypoints, **keypoints}
+
+        if len(keypoints) >= 2:
+            keypoints = self._synthesize_keypoints_with_line_intersections(frame.shape, keypoints)
+        if calibration:
+            keypoints = self.calibrate_keypoints(frame, keypoints)
+
+        self.prev_keypoints = keypoints
+        self.prev_gray = curr_gray
+
+        # Object detection
+        objects = self.detect_objects(frame)
+
+        # Homography calculation
+        if self.frame_idx % homography_interval == 0 or self.homography_matrix is None:
+            img_pts, world_pts, used_labels = [], [], []
+            for label, (xi, yi) in keypoints.items():
+                idx = PITCH_POINTS_TO_INTERSECTION.get(label, -1)
+                if idx in NOT_ON_PLANE: continue
+                wx, wy, wz = GROUND_TRUTH_POINTS.get(label, (0,0,0))
+                if wz != 0.0: continue
+                img_pts.append([xi, yi])
+                world_pts.append([wx, wy])
+                used_labels.append(label)
+
+            if len(img_pts) >= 4:
+                img_pts = np.array(img_pts, dtype=np.float32)
+                world_pts = np.array(world_pts, dtype=np.float32)
+                self.homography_matrix, _ = cv2.findHomography(img_pts, world_pts, cv2.RANSAC, 5.0)
+                if self.homography_matrix is not None:
+                    self.prev_homography_matrix = self.homography_matrix
+
+        # Project coordinates
+        H_use = self.homography_matrix if self.homography_matrix is not None else self.prev_homography_matrix
+        indiv = {}
+        if H_use is not None:
+            for class_name, class_dict in objects.items():
+                for obj_id, obj_dict in class_dict.items():
+                    bottom_center = obj_dict["Bottom_center"]
+                    coords = np.array([[bottom_center]], dtype=np.float32)
+                    transformed_coords = cv2.perspectiveTransform(coords, H_use)[0].astype(int)
+                    tx, ty = transformed_coords[0, 0], transformed_coords[0, 1]
+
+                    if not (tx < 0 or tx > PITCH_WIDTH or ty < 0 or ty > PITCH_HEIGHT):
+                        obj_dict["Transformed_Coordinates"] = transformed_coords.tolist()[0]
+                    else:
+                        obj_dict["Transformed_Coordinates"] = None
+
+                    if class_name not in indiv:
+                        indiv[class_name] = {}
+                    indiv[class_name][int(obj_id)] = obj_dict
+
+        # Calculate boundaries
+        boundaries = [None, None, None, None]
+        if H_use is not None:
+            height, width = frame.shape[:2]
+            corners = np.array([[[0, 0]], [[width, 0]], [[0, height]], [[width, height]]], dtype=np.float32)
+            transformed_corners = cv2.perspectiveTransform(corners, H_use)
+            boundaries = transformed_corners.astype(int).tolist()
+
+        self.frame_idx += 1
+
+        return {
+            "Coordinates": indiv,
+            "Time": f"{self.frame_idx // fps // 60:02d}:{self.frame_idx // fps % 60:02d}",
+            "Keypoints": self.prev_keypoints,
+            "Boundaries": boundaries
+        }
+
 
     @staticmethod
     def _fit_line(points: np.ndarray):

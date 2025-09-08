@@ -3,7 +3,7 @@ import pandas as pd
 import cv2
 import numpy as np
 import math
-from collections import Counter
+from collections import Counter, deque
 
 PITCH_WIDTH = 105
 PITCH_HEIGHT = 68
@@ -518,3 +518,75 @@ class KalmanFilter:
 
     def correct(self, measurement):
         self.kalman.correct(measurement)
+
+# eagle/realtime_processor.py
+class RealTimeProcessor:
+    def __init__(self, fps: int, team_buffer_size: int = 120):
+        self.fps = fps
+        self.team_buffer_size = team_buffer_size
+        self.player_color_buffer = {}  # {player_id: [colors]}
+        self.team_mapping = {}
+        self.frame_idx = 0
+        self.color_ranges = {
+            "red": [(0, 100, 100), (10, 255, 255)], "red2": [(160, 100, 100), (179, 255, 255)],
+            "blue": [(96, 100, 100), (125, 255, 255)], "white": [(0, 0, 200), (180, 30, 255)],
+            "black": [(0, 0, 0), (180, 255, 50)],
+        }
+
+    def update(self, frame, frame_data):
+        self._update_team_buffer(frame, frame_data)
+        if len(self.team_mapping) < 2 and self.frame_idx > self.team_buffer_size:
+            self.assign_teams()
+
+        self.frame_idx += 1
+
+    def _update_team_buffer(self, frame, frame_data):
+        coordinates = frame_data.get("Coordinates", {})
+        for entity_type in ["Player", "Goalkeeper"]:
+            if entity_type in coordinates:
+                for player_id, data in coordinates[entity_type].items():
+                    x1, y1, x2, y2 = data["BBox"]
+                    crop = frame[y1:y2, x1:x2]
+                    dominant_color = self._get_dominant_color(crop)
+
+                    if player_id not in self.player_color_buffer:
+                        self.player_color_buffer[player_id] = deque(maxlen=self.team_buffer_size)
+                    self.player_color_buffer[player_id].append(dominant_color)
+
+    def _get_dominant_color(self, image):
+        hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        max_count = 0
+        dominant_color = None
+        for color, (lower, upper) in self.color_ranges.items():
+            mask = cv2.inRange(hsv_image, np.array(lower), np.array(upper))
+            count = cv2.countNonZero(mask)
+            if count > max_count:
+                max_count = count
+                dominant_color = color
+        return dominant_color
+
+    def assign_teams(self):
+        player_primary_colors = {}
+        for player_id, colors in self.player_color_buffer.items():
+            if colors:
+                primary_color = Counter(colors).most_common(1)[0][0]
+                player_primary_colors[player_id] = primary_color
+
+        if not player_primary_colors:
+            return
+
+        # Simple clustering: find the two most common primary colors
+        all_primary_colors = list(player_primary_colors.values())
+        if len(all_primary_colors) < 2: return
+
+        top_colors = [color for color, count in Counter(all_primary_colors).most_common(2)]
+        if len(top_colors) < 2: return
+
+        team_color_map = {top_colors[0]: 0, top_colors[1]: 1}
+
+        for player_id, color in player_primary_colors.items():
+            if color in team_color_map:
+                self.team_mapping[player_id] = team_color_map[color]
+
+    def get_team_mapping(self):
+        return self.team_mapping

@@ -1,86 +1,92 @@
-import os
-
-os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"  # only for macs
-from eagle.models import CoordinateModel
-from eagle.processor import Processor
-from eagle.utils.io import read_video, write_video
-import json
-from argparse import ArgumentParser
-import pandas as pd
 import cv2
 import numpy as np
+from argparse import ArgumentParser
+from eagle.models.coordinate_model import CoordinateModel
+from eagle.processor import RealTimeProcessor
+
+def annotate_frame(frame, frame_data, team_mapping):
+    """
+    Annotates a single frame with the detected objects and keypoints.
+    """
+    if not frame_data:
+        return frame
+
+    # Draw Player and Goalkeeper annotations
+    for entity_type in ["Player", "Goalkeeper"]:
+        if entity_type in frame_data["Coordinates"]:
+            for player_id, data in frame_data["Coordinates"][entity_type].items():
+                x, y = data["Bottom_center"]
+                team_id = team_mapping.get(player_id)
+
+                if team_id == 0:
+                    color = (255, 0, 0)  # Blue for team 0
+                elif team_id == 1:
+                    color = (0, 0, 255)  # Red for team 1
+                else:
+                    color = (0, 255, 0)  # Green for others/goalkeepers
+
+                cv2.ellipse(frame, (int(x), int(y)), (35, 18), 0, -45, 235, color, 2)
+                cv2.putText(frame, str(player_id), (int(x) - 10, int(y) - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2)
+
+    # Draw Ball annotation
+    if "Ball" in frame_data["Coordinates"]:
+        for ball_id, data in frame_data["Coordinates"]["Ball"].items():
+            x, y = data["Bottom_center"]
+            cv2.circle(frame, (int(x), int(y)), 10, (0, 255, 255), -1) # Yellow circle for the ball
+
+    # Draw Keypoints
+    if "Keypoints" in frame_data:
+        for point in frame_data["Keypoints"].values():
+            cv2.circle(frame, (int(point[0]), int(point[1])), 5, (0, 0, 0), -1)
+
+    return frame
 
 
-def main():
+def main_realtime():
     parser = ArgumentParser()
-    parser.add_argument("--video_path", type=str, required=True)
-    parser.add_argument("--fps", type=int, default=24)
+    parser.add_argument("--video_path", type=str, default="0", help="Path to the video file or '0' for webcam.")
+    parser.add_argument("--fps", type=int, default=24, help="Frames per second for processing.")
     args = parser.parse_args()
 
-    os.makedirs("output", exist_ok=True)
-    video_name = args.video_path.split("/")[-1].split(".")[0]
-    os.makedirs(f"output/{video_name}", exist_ok=True)
-    root = f"output/{video_name}"
-
-    frames, fps = read_video(args.video_path, args.fps)
+    # Initialize the model and real-time processor
     model = CoordinateModel()
-    coordinates = model.get_coordinates(frames, fps, num_homography=1, num_keypoint_detection=3)
+    processor = RealTimeProcessor(fps=args.fps)
 
-    with open(f"{root}/raw_coordinates.json", "w") as f:
-        json.dump(coordinates, f, default=float)
+    video_source = 0 if args.video_path == "0" else args.video_path
+    cap = cv2.VideoCapture(video_source)
 
-    print("Processing Data")
+    if not cap.isOpened():
+        print(f"Error: Could not open video source at {args.video_path}")
+        return
 
-    processor = Processor(coordinates, frames, fps, filter_ball_detections=False)
-    df, team_mapping = processor.process_data(smooth=False)
-    df.to_json(f"{root}/raw_data.json", orient="records")
-    with open(f"{root}/metadata.json", "w") as f:
-        json.dump({"fps": fps, "team_mapping": team_mapping}, f, default=str)
+    annotated_frames = []
 
-    processed_df = processor.format_data(df)
-    processed_df.to_json(f"{root}/processed_data.json", orient="records")
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
 
-    out = []
-    cols = [x for x in df.columns if "video" in x and x not in ["Bottom_Left", "Top_Left", "Top_Right", "Bottom_Right"]]
-    for i, row in df.iterrows():
-        curr_frame = frames[int(i)].copy()
-        for col in cols:
-            if pd.isna(row[col]):
-                continue
-            x, y = row[col]
+        # Process a single frame to get coordinates and other data
+        frame_data = model.process_single_frame(frame, fps=args.fps)
 
-            if "Ball" in col:
-                color = (0, 255, 0)
-                bottom_point = (int(x), int(y) - 20)
-                top_left = (int(x) - 5, int(y) - 30)
-                top_right = (int(x) + 5, int(y) - 30)
-                pts = np.array([bottom_point, top_left, top_right]).reshape(-1, 1, 2)
-                cv2.drawContours(curr_frame, [pts], 0, color, -1)
-            else:
-                id = int(col.split("_")[1])
-                if "Goalkeeper" in col:
-                    color = (0, 255, 0)
-                else:
-                    if id not in team_mapping:
-                        continue
-                    team = team_mapping[id]
-                    if team == 0:
-                        color = (0, 0, 255)
-                    else:
-                        color = (255, 0, 0)
+        if frame_data:
+            # Update the real-time processor and get the latest team mapping
+            processor.update(frame, frame_data)
+            team_mapping = processor.get_team_mapping()
 
-                cv2.ellipse(curr_frame, (int(x), int(y)), (35, 18), 0, -45, 235, color, 1)
-                cv2.putText(curr_frame, str(id), (int(x) - 3, int(y)), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2)
+            # Annotate the frame with the processed data
+            annotated_frame = annotate_frame(frame, frame_data, team_mapping)
+            # cv2.imshow("Eagle Real-Time Tracking", annotated_frame)
+            annotated_frames.append(annotated_frame)
 
-        kp = coordinates[i]["Keypoints"]
-        for x in kp.values():
-            cv2.circle(curr_frame, (int(x[0]), int(x[1])), 6, (0, 0, 0), -1)
+        # if cv2.waitKey(1) & 0xFF == ord('q'):
+        #     break
 
-        out.append(curr_frame)
+    if annotated_frames:
+        for idx, frame in enumerate(annotated_frames):
+            cv2.imwrite(f"annotated_frame_{idx:04d}.png", frame)
 
-    write_video(out, f"{root}/annotated.mp4", fps)
-    print("Data saved to", root)
-
+    cap.release()
 
 if __name__ == "__main__":
-    main()
+    main_realtime()
