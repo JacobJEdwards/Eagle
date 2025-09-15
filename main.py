@@ -1,10 +1,47 @@
+import base64
 import os
-
 import cv2
 import numpy as np
 from argparse import ArgumentParser
+import json
+import time
 from eagle.models.coordinate_model import CoordinateModel
 from eagle.processor import RealTimeProcessor
+
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            data_b64 = base64.b64encode(obj.tobytes()).decode('utf-8')
+            return dict(__ndarray__=data_b64,
+                        dtype=str(obj.dtype),
+                        shape=obj.shape)
+
+        if isinstance(obj, np.generic):
+            return obj.item()
+
+        return super().default(obj)
+
+def json_numpy_obj_hook(dct):
+    if isinstance(dct, dict) and '__ndarray__' in dct:
+        data = base64.b64decode(dct['__ndarray__'])
+        return np.frombuffer(data, dct['dtype']).reshape(dct['shape'])
+    return dct
+
+def dumps(*args, **kwargs):
+    kwargs.setdefault('cls', NumpyEncoder)
+    return json.dumps(*args, **kwargs)
+
+def loads(*args, **kwargs):
+    kwargs.setdefault('object_hook', json_numpy_obj_hook)
+    return json.loads(*args, **kwargs)
+
+def dump(*args, **kwargs):
+    kwargs.setdefault('cls', NumpyEncoder)
+    return json.dump(*args, **kwargs)
+
+def load(*args, **kwargs):
+    kwargs.setdefault('object_hook', json_numpy_obj_hook)
+    return json.load(*args, **kwargs)
 
 def annotate_frame(frame, frame_data, team_mapping):
     """
@@ -47,12 +84,10 @@ def annotate_frame(frame, frame_data, team_mapping):
 def main_realtime():
     parser = ArgumentParser()
     parser.add_argument("--video_path", type=str, default="0", help="Path to the video file or '0' for webcam.")
-    parser.add_argument("--fps", type=int, default=24, help="Frames per second for processing.")
+    parser.add_argument("--output_dir", type=str, default="output", help="Directory to save output files.")
     args = parser.parse_args()
 
-    # Initialize the model and real-time processor
     model = CoordinateModel()
-    processor = RealTimeProcessor(fps=args.fps)
 
     video_source = 0 if args.video_path == "0" else args.video_path
     cap = cv2.VideoCapture(video_source)
@@ -61,39 +96,67 @@ def main_realtime():
         print(f"Error: Could not open video source at {args.video_path}")
         return
 
-    annotated_frames = []
+    native_fps = cap.get(cv2.CAP_PROP_FPS)
+    if native_fps == 0:
+        native_fps = 30  # Default for webcams
 
-    i = 0
-    while True:
+    processor = RealTimeProcessor(fps=native_fps)
+
+    os.makedirs(args.output_dir, exist_ok=True)
+    json_output_dir = os.path.join(args.output_dir, "json_data")
+    frames_output_dir = os.path.join(args.output_dir, "annotated_frames")
+    os.makedirs(json_output_dir, exist_ok=True)
+    os.makedirs(frames_output_dir, exist_ok=True)
+
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out_video = None
+
+    frame_count = 0
+    while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
 
-        print(f"Processing frame {i}")
-        i += 1
+        start_time = time.time()
 
-        # Process a single frame to get coordinates and other data
-        frame_data = model.process_single_frame(frame, fps=args.fps)
+        frame_data = model.process_single_frame(frame, fps=native_fps)
 
         if frame_data:
-            # Update the real-time processor and get the latest team mapping
             processor.update(frame, frame_data)
             team_mapping = processor.get_team_mapping()
 
-            # Annotate the frame with the processed data
-            annotated_frame = annotate_frame(frame, frame_data, team_mapping)
-            # cv2.imshow("Eagle Real-Time Tracking", annotated_frame)
-            annotated_frames.append(annotated_frame)
+            json_filename = os.path.join(json_output_dir, f"frame_{frame_count:04d}.json")
+            with open(json_filename, 'w') as f:
+                dump(frame_data, f, cls=NumpyEncoder, indent=4)
 
-        # if cv2.waitKey(1) & 0xFF == ord('q'):
-        #     break
+            annotated_frame = annotate_frame(frame.copy(), frame_data, team_mapping)
 
-    os.mkdir("output") if not os.path.exists("output") else None
-    if annotated_frames:
-        for idx, frame in enumerate(annotated_frames):
-            cv2.imwrite(f"output/annotated_frame_{idx:04d}.png", frame)
+            frame_filename = os.path.join(frames_output_dir, f"annotated_frame_{frame_count:04d}.png")
+            cv2.imwrite(frame_filename, annotated_frame)
+
+            if out_video is None:
+                h, w, _ = annotated_frame.shape
+                out_video = cv2.VideoWriter(os.path.join(args.output_dir, "annotated_video.mp4"), fourcc, native_fps, (w,h))
+
+            out_video.write(annotated_frame)
+            cv2.imshow("Eagle Real-Time Tracking", annotated_frame)
+
+        processing_time = time.time() - start_time
+
+        frames_to_skip = int(processing_time * native_fps)
+
+        frame_count += frames_to_skip + 1
+
+        cap.set(cv2.CAP_PROP_POS_FRAMES, frame_count)
+
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
     cap.release()
+    if out_video:
+        out_video.release()
+    cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main_realtime()

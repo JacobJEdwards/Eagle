@@ -184,7 +184,7 @@ class CoordinateModel:
 
         return {
             "Coordinates": indiv,
-            "Time": f"{self.frame_idx // fps // 60:02d}:{self.frame_idx // fps % 60:02d}",
+            "Time": f"{self.frame_idx // fps // 60:02f}:{self.frame_idx // fps % 60:02f}",
             "Keypoints": self.prev_keypoints,
             "Boundaries": boundaries
         }
