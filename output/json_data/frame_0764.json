@@ -1,0 +1,159 @@
+{
+    "Coordinates": {
+        "Player": {
+            "75": {
+                "BBox": [
+                    745,
+                    368,
+                    764,
+                    416
+                ],
+                "Confidence": 0.8923975825309753,
+                "Bottom_center": [
+                    754,
+                    416
+                ],
+                "Transformed_Coordinates": [
+                    56,
+                    21
+                ]
+            },
+            "128": {
+                "BBox": [
+                    170,
+                    285,
+                    190,
+                    324
+                ],
+                "Confidence": 0.8529108166694641,
+                "Bottom_center": [
+                    180,
+                    324
+                ],
+                "Transformed_Coordinates": [
+                    31,
+                    33
+                ]
+            },
+            "120": {
+                "BBox": [
+                    1120,
+                    249,
+                    1137,
+                    285
+                ],
+                "Confidence": 0.88213711977005,
+                "Bottom_center": [
+                    1128,
+                    285
+                ],
+                "Transformed_Coordinates": [
+                    76,
+                    40
+                ]
+            },
+            "151": {
+                "BBox": [
+                    1187,
+                    304,
+                    1208,
+                    347
+                ],
+                "Confidence": 0.8771944642066956,
+                "Bottom_center": [
+                    1197,
+                    347
+                ],
+                "Transformed_Coordinates": [
+                    76,
+                    29
+                ]
+            }
+        }
+    },
+    "Time": "0.000000:2.000000",
+    "Keypoints": {
+        "L_PENALTY_AREA_TR_CORNER": [
+            60,
+            220
+        ],
+        "T_TOUCH_AND_HALFWAY_LINES_INTERSECTION": [
+            691,
+            178
+        ],
+        "CENTER_CIRCLE_TANGENT_TR": [
+            879,
+            312
+        ],
+        "CENTER_CIRCLE_TANGENT_TL": [
+            497,
+            310
+        ],
+        "CENTER_CIRCLE_TANGENT_BR": [
+            481,
+            338
+        ],
+        "CENTER_CIRCLE_TR": [
+            815,
+            284
+        ],
+        "CENTER_CIRCLE_TL": [
+            557,
+            283
+        ],
+        "CENTER_CIRCLE_BR": [
+            854,
+            366
+        ],
+        "CENTER_CIRCLE_BL": [
+            880,
+            318
+        ],
+        "CENTER_CIRCLE_R": [
+            895,
+            323
+        ],
+        "CENTER_CIRCLE_L": [
+            481,
+            321
+        ],
+        "T_HALFWAY_LINE_AND_CENTER_CIRCLE_INTERSECTION": [
+            684,
+            388
+        ],
+        "B_HALFWAY_LINE_AND_CENTER_CIRCLE_INTERSECTION": [
+            476,
+            330
+        ],
+        "CENTER_MARK": [
+            518,
+            359
+        ]
+    },
+    "Boundaries": [
+        [
+            [
+                -59,
+                234
+            ]
+        ],
+        [
+            [
+                164,
+                240
+            ]
+        ],
+        [
+            [
+                37,
+                0
+            ]
+        ],
+        [
+            [
+                67,
+                0
+            ]
+        ]
+    ]
+}

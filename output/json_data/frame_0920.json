@@ -1,0 +1,178 @@
+{
+    "Coordinates": {
+        "Player": {
+            "289": {
+                "BBox": [
+                    382,
+                    344,
+                    402,
+                    395
+                ],
+                "Confidence": 0.8588200211524963,
+                "Bottom_center": [
+                    392,
+                    395
+                ],
+                "Transformed_Coordinates": [
+                    41,
+                    25
+                ]
+            },
+            "314": {
+                "BBox": [
+                    741,
+                    280,
+                    768,
+                    321
+                ],
+                "Confidence": 0.757889986038208,
+                "Bottom_center": [
+                    754,
+                    321
+                ],
+                "Transformed_Coordinates": [
+                    55,
+                    35
+                ]
+            },
+            "324": {
+                "BBox": [
+                    692,
+                    250,
+                    710,
+                    289
+                ],
+                "Confidence": 0.8369870185852051,
+                "Bottom_center": [
+                    701,
+                    289
+                ],
+                "Transformed_Coordinates": [
+                    53,
+                    40
+                ]
+            },
+            "254": {
+                "BBox": [
+                    834,
+                    332,
+                    856,
+                    380
+                ],
+                "Confidence": 0.8684277534484863,
+                "Bottom_center": [
+                    845,
+                    380
+                ],
+                "Transformed_Coordinates": [
+                    58,
+                    27
+                ]
+            }
+        },
+        "Goalkeeper": {
+            "278": {
+                "BBox": [
+                    1071,
+                    233,
+                    1090,
+                    274
+                ],
+                "Confidence": 0.8746899366378784,
+                "Bottom_center": [
+                    1080,
+                    274
+                ],
+                "Transformed_Coordinates": [
+                    71,
+                    43
+                ]
+            }
+        },
+        "Ball": {
+            "0": {
+                "BBox": {
+                    "__ndarray__": "EAIAAAAAAAAeAQAAAAAAABwCAAAAAAAAKAEAAAAAAAA=",
+                    "dtype": "int64",
+                    "shape": [
+                        4
+                    ]
+                },
+                "Confidence": 0.5811271667480469,
+                "Bottom_center": [
+                    534,
+                    296
+                ],
+                "Transformed_Coordinates": [
+                    45,
+                    39
+                ]
+            }
+        }
+    },
+    "Time": "0.000000:3.000000",
+    "Keypoints": {
+        "R_PENALTY_AREA_BL_CORNER": [
+            1008,
+            239
+        ],
+        "R_PENALTY_AREA_TL_CORNER": [
+            868,
+            157
+        ],
+        "R_PENALTY_AREA_TR_CORNER": [
+            1234,
+            324
+        ],
+        "R_GOAL_AREA_BL_CORNER": [
+            1015,
+            206
+        ],
+        "R_GOAL_AREA_TL_CORNER": [
+            966,
+            277
+        ],
+        "R_GOAL_AREA_BR_CORNER": [
+            822,
+            142
+        ],
+        "R_GOAL_TL_POST": [
+            738,
+            302
+        ],
+        "TR_PITCH_CORNER": [
+            966,
+            282
+        ],
+        "RIGHT_CIRCLE_L": [
+            754,
+            316
+        ]
+    },
+    "Boundaries": [
+        [
+            [
+                -36,
+                185
+            ]
+        ],
+        [
+            [
+                129,
+                186
+            ]
+        ],
+        [
+            [
+                36,
+                0
+            ]
+        ],
+        [
+            [
+                66,
+                1
+            ]
+        ]
+    ]
+}

@@ -1,0 +1,386 @@
+{
+    "Coordinates": {
+        "Player": {
+            "1": {
+                "BBox": [
+                    384,
+                    456,
+                    404,
+                    507
+                ],
+                "Confidence": 0.8911517262458801,
+                "Bottom_center": [
+                    394,
+                    507
+                ],
+                "Transformed_Coordinates": [
+                    43,
+                    16
+                ]
+            },
+            "2": {
+                "BBox": [
+                    286,
+                    353,
+                    301,
+                    398
+                ],
+                "Confidence": 0.8841938376426697,
+                "Bottom_center": [
+                    293,
+                    398
+                ],
+                "Transformed_Coordinates": [
+                    37,
+                    28
+                ]
+            },
+            "3": {
+                "BBox": [
+                    455,
+                    293,
+                    471,
+                    330
+                ],
+                "Confidence": 0.8709842562675476,
+                "Bottom_center": [
+                    463,
+                    330
+                ],
+                "Transformed_Coordinates": [
+                    43,
+                    39
+                ]
+            },
+            "4": {
+                "BBox": [
+                    553,
+                    280,
+                    568,
+                    319
+                ],
+                "Confidence": 0.6903061270713806,
+                "Bottom_center": [
+                    560,
+                    319
+                ],
+                "Transformed_Coordinates": [
+                    48,
+                    41
+                ]
+            },
+            "5": {
+                "BBox": [
+                    197,
+                    316,
+                    212,
+                    357
+                ],
+                "Confidence": 0.8794381618499756,
+                "Bottom_center": [
+                    204,
+                    357
+                ],
+                "Transformed_Coordinates": [
+                    32,
+                    34
+                ]
+            },
+            "6": {
+                "BBox": [
+                    396,
+                    316,
+                    414,
+                    351
+                ],
+                "Confidence": 0.8490310907363892,
+                "Bottom_center": [
+                    405,
+                    351
+                ],
+                "Transformed_Coordinates": [
+                    41,
+                    35
+                ]
+            },
+            "7": {
+                "BBox": [
+                    629,
+                    393,
+                    647,
+                    440
+                ],
+                "Confidence": 0.779593288898468,
+                "Bottom_center": [
+                    638,
+                    440
+                ],
+                "Transformed_Coordinates": [
+                    52,
+                    23
+                ]
+            },
+            "8": {
+                "BBox": [
+                    982,
+                    337,
+                    996,
+                    380
+                ],
+                "Confidence": 0.8232792615890503,
+                "Bottom_center": [
+                    989,
+                    380
+                ],
+                "Transformed_Coordinates": [
+                    67,
+                    31
+                ]
+            },
+            "10": {
+                "BBox": [
+                    840,
+                    301,
+                    856,
+                    339
+                ],
+                "Confidence": 0.682642936706543,
+                "Bottom_center": [
+                    848,
+                    339
+                ],
+                "Transformed_Coordinates": [
+                    61,
+                    37
+                ]
+            },
+            "11": {
+                "BBox": [
+                    961,
+                    323,
+                    976,
+                    365
+                ],
+                "Confidence": 0.8356533050537109,
+                "Bottom_center": [
+                    968,
+                    365
+                ],
+                "Transformed_Coordinates": [
+                    66,
+                    33
+                ]
+            },
+            "12": {
+                "BBox": [
+                    881,
+                    319,
+                    892,
+                    357
+                ],
+                "Confidence": 0.5374857187271118,
+                "Bottom_center": [
+                    886,
+                    357
+                ],
+                "Transformed_Coordinates": [
+                    63,
+                    34
+                ]
+            },
+            "13": {
+                "BBox": [
+                    936,
+                    313,
+                    953,
+                    357
+                ],
+                "Confidence": 0.6561821699142456,
+                "Bottom_center": [
+                    944,
+                    357
+                ],
+                "Transformed_Coordinates": [
+                    65,
+                    34
+                ]
+            },
+            "14": {
+                "BBox": [
+                    608,
+                    584,
+                    631,
+                    651
+                ],
+                "Confidence": 0.8963330388069153,
+                "Bottom_center": [
+                    619,
+                    651
+                ],
+                "Transformed_Coordinates": [
+                    51,
+                    4
+                ]
+            },
+            "15": {
+                "BBox": [
+                    919,
+                    298,
+                    936,
+                    337
+                ],
+                "Confidence": 0.6738688349723816,
+                "Bottom_center": [
+                    927,
+                    337
+                ],
+                "Transformed_Coordinates": [
+                    65,
+                    38
+                ]
+            },
+            "16": {
+                "BBox": [
+                    816,
+                    321,
+                    835,
+                    364
+                ],
+                "Confidence": 0.7411379218101501,
+                "Bottom_center": [
+                    825,
+                    364
+                ],
+                "Transformed_Coordinates": [
+                    60,
+                    33
+                ]
+            },
+            "17": {
+                "BBox": [
+                    890,
+                    314,
+                    902,
+                    356
+                ],
+                "Confidence": 0.5669330954551697,
+                "Bottom_center": [
+                    896,
+                    356
+                ],
+                "Transformed_Coordinates": [
+                    63,
+                    35
+                ]
+            },
+            "18": {
+                "BBox": [
+                    921,
+                    332,
+                    936,
+                    379
+                ],
+                "Confidence": 0.6954988241195679,
+                "Bottom_center": [
+                    928,
+                    379
+                ],
+                "Transformed_Coordinates": [
+                    64,
+                    31
+                ]
+            },
+            "19": {
+                "BBox": [
+                    620,
+                    489,
+                    643,
+                    540
+                ],
+                "Confidence": 0.6996782422065735,
+                "Bottom_center": [
+                    631,
+                    540
+                ],
+                "Transformed_Coordinates": [
+                    52,
+                    13
+                ]
+            },
+            "20": {
+                "BBox": [
+                    830,
+                    340,
+                    850,
+                    382
+                ],
+                "Confidence": 0.6596851348876953,
+                "Bottom_center": [
+                    840,
+                    382
+                ],
+                "Transformed_Coordinates": [
+                    60,
+                    31
+                ]
+            }
+        }
+    },
+    "Time": "0.000000:0.000000",
+    "Keypoints": {
+        "T_TOUCH_AND_HALFWAY_LINES_INTERSECTION": [
+            646,
+            212
+        ],
+        "CENTER_CIRCLE_TANGENT_BR": [
+            856,
+            376
+        ],
+        "CENTER_CIRCLE_TANGENT_BL": [
+            437,
+            378
+        ],
+        "CENTER_CIRCLE_BR": [
+            782,
+            410
+        ],
+        "CENTER_CIRCLE_L": [
+            436,
+            363
+        ],
+        "T_HALFWAY_LINE_AND_CENTER_CIRCLE_INTERSECTION": [
+            646,
+            307
+        ],
+        "CENTER_MARK": [
+            646,
+            357
+        ]
+    },
+    "Boundaries": [
+        [
+            [
+                -23,
+                180
+            ]
+        ],
+        [
+            [
+                125,
+                181
+            ]
+        ],
+        [
+            [
+                35,
+                0
+            ]
+        ],
+        [
+            [
+                70,
+                0
+            ]
+        ]
+    ]
+}

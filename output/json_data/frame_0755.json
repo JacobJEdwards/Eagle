@@ -1,0 +1,184 @@
+{
+    "Coordinates": {
+        "Player": {
+            "75": {
+                "BBox": [
+                    743,
+                    365,
+                    764,
+                    411
+                ],
+                "Confidence": 0.884005069732666,
+                "Bottom_center": [
+                    753,
+                    411
+                ],
+                "Transformed_Coordinates": [
+                    56,
+                    21
+                ]
+            },
+            "128": {
+                "BBox": [
+                    162,
+                    285,
+                    176,
+                    325
+                ],
+                "Confidence": 0.8830496668815613,
+                "Bottom_center": [
+                    169,
+                    325
+                ],
+                "Transformed_Coordinates": [
+                    31,
+                    33
+                ]
+            },
+            "120": {
+                "BBox": [
+                    1108,
+                    247,
+                    1123,
+                    281
+                ],
+                "Confidence": 0.8736100196838379,
+                "Bottom_center": [
+                    1115,
+                    281
+                ],
+                "Transformed_Coordinates": [
+                    76,
+                    41
+                ]
+            },
+            "151": {
+                "BBox": [
+                    1172,
+                    303,
+                    1191,
+                    344
+                ],
+                "Confidence": 0.8582590222358704,
+                "Bottom_center": [
+                    1181,
+                    344
+                ],
+                "Transformed_Coordinates": [
+                    75,
+                    30
+                ]
+            },
+            "43": {
+                "BBox": [
+                    663,
+                    228,
+                    684,
+                    266
+                ],
+                "Confidence": 0.6150718331336975,
+                "Bottom_center": [
+                    673,
+                    266
+                ],
+                "Transformed_Coordinates": [
+                    53,
+                    44
+                ]
+            }
+        }
+    },
+    "Time": "0.000000:2.000000",
+    "Keypoints": {
+        "L_PENALTY_AREA_TR_CORNER": [
+            54,
+            222
+        ],
+        "T_TOUCH_AND_HALFWAY_LINES_INTERSECTION": [
+            680,
+            179
+        ],
+        "CENTER_CIRCLE_TANGENT_TR": [
+            866,
+            311
+        ],
+        "CENTER_CIRCLE_TANGENT_TL": [
+            488,
+            310
+        ],
+        "CENTER_CIRCLE_TANGENT_BR": [
+            473,
+            338
+        ],
+        "CENTER_CIRCLE_TR": [
+            804,
+            284
+        ],
+        "CENTER_CIRCLE_TL": [
+            546,
+            283
+        ],
+        "CENTER_CIRCLE_BR": [
+            839,
+            366
+        ],
+        "CENTER_CIRCLE_BL": [
+            867,
+            318
+        ],
+        "CENTER_CIRCLE_R": [
+            882,
+            322
+        ],
+        "CENTER_CIRCLE_L": [
+            473,
+            321
+        ],
+        "T_HALFWAY_LINE_AND_CENTER_CIRCLE_INTERSECTION": [
+            643,
+            274
+        ],
+        "B_HALFWAY_LINE_AND_CENTER_CIRCLE_INTERSECTION": [
+            674,
+            387
+        ],
+        "CENTER_MARK": [
+            665,
+            338
+        ],
+        "R_PENALTY_AREA_TL_CORNER": [
+            468,
+            330
+        ],
+        "CENTER_CIRCLE_TANGENT_BL": [
+            509,
+            359
+        ]
+    },
+    "Boundaries": [
+        [
+            [
+                -59,
+                234
+            ]
+        ],
+        [
+            [
+                164,
+                240
+            ]
+        ],
+        [
+            [
+                37,
+                0
+            ]
+        ],
+        [
+            [
+                67,
+                0
+            ]
+        ]
+    ]
+}

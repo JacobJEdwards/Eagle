@@ -1,0 +1,158 @@
+{
+    "Coordinates": {
+        "Player": {
+            "254": {
+                "BBox": [
+                    694,
+                    358,
+                    726,
+                    418
+                ],
+                "Confidence": 0.6662039756774902,
+                "Bottom_center": [
+                    710,
+                    418
+                ],
+                "Transformed_Coordinates": [
+                    53,
+                    22
+                ]
+            },
+            "8": {
+                "BBox": [
+                    721,
+                    362,
+                    745,
+                    413
+                ],
+                "Confidence": 0.8427719473838806,
+                "Bottom_center": [
+                    733,
+                    413
+                ],
+                "Transformed_Coordinates": [
+                    54,
+                    23
+                ]
+            },
+            "120": {
+                "BBox": [
+                    648,
+                    270,
+                    662,
+                    315
+                ],
+                "Confidence": 0.782378613948822,
+                "Bottom_center": [
+                    655,
+                    315
+                ],
+                "Transformed_Coordinates": [
+                    51,
+                    36
+                ]
+            },
+            "123": {
+                "BBox": [
+                    564,
+                    310,
+                    590,
+                    348
+                ],
+                "Confidence": 0.7262954115867615,
+                "Bottom_center": [
+                    577,
+                    348
+                ],
+                "Transformed_Coordinates": [
+                    47,
+                    31
+                ]
+            }
+        },
+        "Goalkeeper": {
+            "278": {
+                "BBox": [
+                    952,
+                    234,
+                    971,
+                    272
+                ],
+                "Confidence": 0.8788986802101135,
+                "Bottom_center": [
+                    961,
+                    272
+                ],
+                "Transformed_Coordinates": [
+                    65,
+                    44
+                ]
+            }
+        },
+        "Ball": {
+            "0": {
+                "BBox": {
+                    "__ndarray__": "sAIAAAAAAABaAQAAAAAAAMECAAAAAAAAaQEAAAAAAAA=",
+                    "dtype": "int64",
+                    "shape": [
+                        4
+                    ]
+                },
+                "Confidence": 0.40232953429222107,
+                "Bottom_center": [
+                    696,
+                    361
+                ],
+                "Transformed_Coordinates": [
+                    52,
+                    29
+                ]
+            }
+        }
+    },
+    "Time": "0.000000:3.000000",
+    "Keypoints": {
+        "R_PENALTY_AREA_TL_CORNER": [
+            229,
+            331
+        ],
+        "R_GOAL_TL_POST": [
+            233,
+            335
+        ],
+        "R_GOAL_BL_POST": [
+            876,
+            232
+        ],
+        "TR_PITCH_CORNER": [
+            838,
+            265
+        ]
+    },
+    "Boundaries": [
+        [
+            [
+                -36,
+                185
+            ]
+        ],
+        [
+            [
+                129,
+                186
+            ]
+        ],
+        [
+            [
+                36,
+                0
+            ]
+        ],
+        [
+            [
+                66,
+                1
+            ]
+        ]
+    ]
+}

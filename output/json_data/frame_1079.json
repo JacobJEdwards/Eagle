@@ -1,0 +1,267 @@
+{
+    "Coordinates": {
+        "Player": {
+            "444": {
+                "BBox": [
+                    1028,
+                    413,
+                    1060,
+                    473
+                ],
+                "Confidence": 0.8912545442581177,
+                "Bottom_center": [
+                    1044,
+                    473
+                ],
+                "Transformed_Coordinates": [
+                    82,
+                    18
+                ]
+            },
+            "456": {
+                "BBox": [
+                    1051,
+                    530,
+                    1083,
+                    613
+                ],
+                "Confidence": 0.9142639636993408,
+                "Bottom_center": [
+                    1067,
+                    613
+                ],
+                "Transformed_Coordinates": [
+                    78,
+                    9
+                ]
+            },
+            "457": {
+                "BBox": [
+                    187,
+                    333,
+                    213,
+                    385
+                ],
+                "Confidence": 0.8984488248825073,
+                "Bottom_center": [
+                    200,
+                    385
+                ],
+                "Transformed_Coordinates": [
+                    61,
+                    34
+                ]
+            },
+            "470": {
+                "BBox": [
+                    759,
+                    293,
+                    780,
+                    348
+                ],
+                "Confidence": 0.8827196955680847,
+                "Bottom_center": [
+                    769,
+                    348
+                ],
+                "Transformed_Coordinates": [
+                    80,
+                    32
+                ]
+            },
+            "347": {
+                "BBox": [
+                    501,
+                    393,
+                    530,
+                    448
+                ],
+                "Confidence": 0.7328542470932007,
+                "Bottom_center": [
+                    515,
+                    448
+                ],
+                "Transformed_Coordinates": [
+                    69,
+                    24
+                ]
+            },
+            "7": {
+                "BBox": [
+                    355,
+                    428,
+                    398,
+                    491
+                ],
+                "Confidence": 0.9101830124855042,
+                "Bottom_center": [
+                    376,
+                    491
+                ],
+                "Transformed_Coordinates": [
+                    65,
+                    22
+                ]
+            },
+            "324": {
+                "BBox": [
+                    697,
+                    253,
+                    715,
+                    300
+                ],
+                "Confidence": 0.8848980665206909,
+                "Bottom_center": [
+                    706,
+                    300
+                ],
+                "Transformed_Coordinates": [
+                    81,
+                    38
+                ]
+            },
+            "132": {
+                "BBox": [
+                    630,
+                    449,
+                    659,
+                    515
+                ],
+                "Confidence": 0.9071712493896484,
+                "Bottom_center": [
+                    644,
+                    515
+                ],
+                "Transformed_Coordinates": [
+                    71,
+                    18
+                ]
+            },
+            "449": {
+                "BBox": [
+                    458,
+                    403,
+                    494,
+                    462
+                ],
+                "Confidence": 0.7312608957290649,
+                "Bottom_center": [
+                    476,
+                    462
+                ],
+                "Transformed_Coordinates": [
+                    68,
+                    23
+                ]
+            }
+        },
+        "Goalkeeper": {
+            "469": {
+                "BBox": [
+                    1185,
+                    244,
+                    1214,
+                    294
+                ],
+                "Confidence": 0.9001061916351318,
+                "Bottom_center": [
+                    1199,
+                    294
+                ],
+                "Transformed_Coordinates": [
+                    97,
+                    33
+                ]
+            }
+        },
+        "Ball": {
+            "0": {
+                "BBox": {
+                    "__ndarray__": "6QEAAAAAAAC6AQAAAAAAAPQBAAAAAAAAxgEAAAAAAAA=",
+                    "dtype": "int64",
+                    "shape": [
+                        4
+                    ]
+                },
+                "Confidence": 0.502091646194458,
+                "Bottom_center": [
+                    494,
+                    454
+                ],
+                "Transformed_Coordinates": [
+                    69,
+                    24
+                ]
+            }
+        }
+    },
+    "Time": "0.000000:4.000000",
+    "Keypoints": {
+        "R_PENALTY_AREA_TL_CORNER": [
+            727,
+            210
+        ],
+        "R_GOAL_AREA_TL_CORNER": [
+            1075,
+            236
+        ],
+        "TR_PITCH_CORNER": [
+            913,
+            141
+        ],
+        "RIGHT_CIRCLE_L": [
+            848,
+            321
+        ],
+        "BR_16M_LINE_AND_PENALTY_ARC_INTERSECTION": [
+            1050,
+            364
+        ],
+        "TR_16M_LINE_AND_PENALTY_ARC_INTERSECTION": [
+            854,
+            268
+        ],
+        "RIGHT_CIRCLE_TANGENT_T": [
+            833,
+            311
+        ],
+        "RIGHT_CIRCLE_TANGENT_B": [
+            874,
+            332
+        ],
+        "R_PENALTY_MARK": [
+            1081,
+            300
+        ],
+        "R_MIDDLE_PENALTY": [
+            942,
+            316
+        ]
+    },
+    "Boundaries": [
+        [
+            [
+                57,
+                203
+            ]
+        ],
+        [
+            [
+                167,
+                121
+            ]
+        ],
+        [
+            [
+                55,
+                11
+            ]
+        ],
+        [
+            [
+                79,
+                4
+            ]
+        ]
+    ]
+}

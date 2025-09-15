@@ -1,0 +1,110 @@
+{
+    "Coordinates": {
+        "Player": {
+            "235": {
+                "BBox": [
+                    973,
+                    280,
+                    1012,
+                    345
+                ],
+                "Confidence": 0.6860893368721008,
+                "Bottom_center": [
+                    992,
+                    345
+                ],
+                "Transformed_Coordinates": [
+                    65,
+                    32
+                ]
+            },
+            "239": {
+                "BBox": [
+                    1048,
+                    337,
+                    1091,
+                    397
+                ],
+                "Confidence": 0.6801248788833618,
+                "Bottom_center": [
+                    1069,
+                    397
+                ],
+                "Transformed_Coordinates": [
+                    66,
+                    25
+                ]
+            },
+            "123": {
+                "BBox": [
+                    782,
+                    306,
+                    816,
+                    352
+                ],
+                "Confidence": 0.6826509833335876,
+                "Bottom_center": [
+                    799,
+                    352
+                ],
+                "Transformed_Coordinates": [
+                    57,
+                    31
+                ]
+            }
+        }
+    },
+    "Time": "0.000000:3.000000",
+    "Keypoints": {
+        "L_PENALTY_AREA_TR_CORNER": [
+            58,
+            262
+        ],
+        "T_TOUCH_AND_HALFWAY_LINES_INTERSECTION": [
+            930,
+            276
+        ],
+        "CENTER_CIRCLE_TANGENT_TR": [
+            583,
+            263
+        ],
+        "CENTER_CIRCLE_TANGENT_TL": [
+            722,
+            375
+        ],
+        "CENTER_CIRCLE_TANGENT_BR": [
+            699,
+            292
+        ],
+        "CENTER_CIRCLE_TANGENT_BL": [
+            600,
+            263
+        ]
+    },
+    "Boundaries": [
+        [
+            [
+                -36,
+                185
+            ]
+        ],
+        [
+            [
+                129,
+                186
+            ]
+        ],
+        [
+            [
+                36,
+                0
+            ]
+        ],
+        [
+            [
+                66,
+                1
+            ]
+        ]
+    ]
+}

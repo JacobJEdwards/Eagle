@@ -1,0 +1,172 @@
+{
+    "Coordinates": {
+        "Player": {
+            "75": {
+                "BBox": [
+                    332,
+                    407,
+                    362,
+                    471
+                ],
+                "Confidence": 0.8848154544830322,
+                "Bottom_center": [
+                    347,
+                    471
+                ],
+                "Transformed_Coordinates": [
+                    41,
+                    17
+                ]
+            },
+            "132": {
+                "BBox": [
+                    686,
+                    450,
+                    713,
+                    513
+                ],
+                "Confidence": 0.8711307048797607,
+                "Bottom_center": [
+                    699,
+                    513
+                ],
+                "Transformed_Coordinates": [
+                    52,
+                    13
+                ]
+            },
+            "388": {
+                "BBox": [
+                    963,
+                    340,
+                    991,
+                    398
+                ],
+                "Confidence": 0.873279333114624,
+                "Bottom_center": [
+                    977,
+                    398
+                ],
+                "Transformed_Coordinates": [
+                    63,
+                    25
+                ]
+            },
+            "123": {
+                "BBox": [
+                    750,
+                    317,
+                    773,
+                    374
+                ],
+                "Confidence": 0.8288435339927673,
+                "Bottom_center": [
+                    761,
+                    374
+                ],
+                "Transformed_Coordinates": [
+                    55,
+                    28
+                ]
+            },
+            "405": {
+                "BBox": [
+                    854,
+                    294,
+                    882,
+                    347
+                ],
+                "Confidence": 0.7775593996047974,
+                "Bottom_center": [
+                    868,
+                    347
+                ],
+                "Transformed_Coordinates": [
+                    60,
+                    31
+                ]
+            }
+        }
+    },
+    "Time": "0.000000:3.000000",
+    "Keypoints": {
+        "R_PENALTY_AREA_TL_CORNER": [
+            758,
+            320
+        ],
+        "R_PENALTY_AREA_TR_CORNER": [
+            1108,
+            193
+        ],
+        "R_GOAL_AREA_TL_CORNER": [
+            1140,
+            252
+        ],
+        "R_GOAL_AREA_TR_CORNER": [
+            1263,
+            241
+        ],
+        "TR_PITCH_CORNER": [
+            964,
+            150
+        ],
+        "RIGHT_CIRCLE_L": [
+            894,
+            338
+        ],
+        "BR_16M_LINE_AND_PENALTY_ARC_INTERSECTION": [
+            1108,
+            386
+        ],
+        "TR_16M_LINE_AND_PENALTY_ARC_INTERSECTION": [
+            899,
+            284
+        ],
+        "RIGHT_CIRCLE_TANGENT_T": [
+            883,
+            333
+        ],
+        "RIGHT_CIRCLE_TANGENT_B": [
+            921,
+            354
+        ],
+        "R_PENALTY_MARK": [
+            1140,
+            317
+        ],
+        "R_MIDDLE_PENALTY": [
+            996,
+            333
+        ],
+        "R_PENALTY_AREA_BL_CORNER": [
+            755,
+            348
+        ]
+    },
+    "Boundaries": [
+        [
+            [
+                -36,
+                185
+            ]
+        ],
+        [
+            [
+                129,
+                186
+            ]
+        ],
+        [
+            [
+                36,
+                0
+            ]
+        ],
+        [
+            [
+                66,
+                1
+            ]
+        ]
+    ]
+}
